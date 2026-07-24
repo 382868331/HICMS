@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Build API (Maven)
         run: |
           cd hicms-api
-          mvn clean package -DskipTests -q
+          mvn clean package -DskipTests
           cp hicms-admin/target/hicms-admin.jar /opt/hicms/
 
       - name: Build Web (Vite)
