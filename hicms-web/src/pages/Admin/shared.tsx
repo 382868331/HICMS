@@ -236,7 +236,7 @@ export function ParamConfig() {
     { key: 'ssl', value: 'true', desc: '启用 SSL' },
   ]
 
-  const configSection = (title: string, icon: string, data: { key: string; value: string; desc: string }[]) => (
+  const configSection = (title: string, _icon: string, data: { key: string; value: string; desc: string }[]) => (
     <Card title={title} size="small" style={{ marginBottom: 16 }}
       extra={<Button type="link" size="small" icon={<EditOutlined />}>编辑</Button>}>
       {data.map((item) => (
