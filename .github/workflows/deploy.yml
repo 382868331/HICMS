@@ -10,6 +10,12 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Cleanup previous build artifacts
+        run: |
+          sudo rm -rf /opt/actions-runner/_work/HICMS/HICMS/hicms-api/*/target 2>/dev/null || true
+          sudo rm -rf /opt/actions-runner/_work/HICMS/HICMS/hicms-web/node_modules 2>/dev/null || true
+          sudo rm -rf /opt/actions-runner/_work/HICMS/HICMS/hicms-web/.vite 2>/dev/null || true
+
       - name: Checkout
         uses: actions/checkout@v5
 
@@ -24,7 +30,6 @@ jobs:
       - name: Build Web (Vite)
         run: |
           cd hicms-web
-          sudo rm -rf node_modules 2>/dev/null || true
           npm ci
           npm run build
 
