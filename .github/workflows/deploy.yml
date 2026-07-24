@@ -23,7 +23,9 @@ jobs:
         run: mvn -f /opt/actions-runner/_work/HICMS/HICMS/hicms-api/pom.xml clean package -DskipTests
 
       - name: Deploy API JAR
-        run: cp /opt/actions-runner/_work/HICMS/HICMS/hicms-api/hicms-admin/target/hicms-admin.jar /opt/hicms/
+        run: |
+          mkdir -p /home/hicms/logs
+          cp /opt/actions-runner/_work/HICMS/HICMS/hicms-api/hicms-admin/target/hicms-admin.jar /opt/hicms/
 
       - name: Build Web (Vite)
         run: |
