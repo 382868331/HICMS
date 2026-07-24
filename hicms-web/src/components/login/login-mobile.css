@@ -1,0 +1,26 @@
+.login-modal-mobile {
+  width: 380px;
+  max-width: 92vw;
+  border-radius: 12px;
+  display: block;
+  overflow: visible;
+}
+
+.login-modal-mobile .login-left {
+  display: none;
+}
+
+.login-modal-mobile .login-right {
+  padding: 44px 24px 24px;
+}
+
+.login-modal-mobile .login-tabs {
+  border-radius: 6px;
+  margin-bottom: 18px;
+}
+
+.login-modal-mobile .login-close {
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+}

@@ -1,0 +1,307 @@
+/* 遮罩层 */
+.book-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 11000;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* antd message 要高于弹窗遮罩 */
+.ant-message {
+  z-index: 12000 !important;
+}
+
+/* 弹窗容器 */
+.book-container {
+  background: var(--bg);
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  animation: bookSlideIn 0.25s ease;
+}
+
+@keyframes bookSlideIn {
+  from { opacity: 0; transform: translateY(-20px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 滚动容器 —— 只包裹表单内容 */
+.book-scroll {
+  overflow: hidden auto;
+  flex: 1;
+  min-height: 0;
+}
+
+/* 标题栏（固定不滚动） */
+.book-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 12px 18px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+}
+.book-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-h);
+  white-space: nowrap;
+  justify-self: start;
+}
+/* 会议室名称 —— 和标题同一排，居中 */
+.book-room-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.book-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #9ca3af;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 2px;
+  flex-shrink: 0;
+  justify-self: end;
+}
+.book-close:hover { color: var(--text); }
+
+/* 表单区域 */
+.book-body {
+  padding: 0 18px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.book-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.book-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-h);
+}
+.book-required { color: #e53e3e; }
+.book-input {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  color: var(--text);
+  background: var(--bg);
+}
+.book-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(43, 146, 240, 0.15);
+}
+
+/* ===== antd Calendar 容器 ===== */
+.book-cal-section {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 4px;
+  overflow: hidden;
+}
+
+/* ===== 选中日期的预定列表 ===== */
+.book-cal-section .ant-picker-calendar-mini .ant-picker-calendar-header {
+  padding: 4px 8px;
+}
+.book-cal-section .ant-picker-calendar-mini .ant-picker-content th {
+  padding: 4px 0;
+  font-size: 11px;
+}
+.book-cal-section .ant-picker-calendar-mini .ant-picker-cell {
+  padding: 1px;
+}
+.book-cal-section .ant-picker-cell-inner {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== 时间选择 - 同一排 ===== */
+.book-date-hint {
+  text-align: center;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.book-time-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.book-time-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.book-time-label {
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.book-time-arrow {
+  font-size: 14px;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+/* antd TimePicker 宽度 */
+.book-time-picker {
+  width: 92px;
+}
+
+/* ===== 线上会议 ===== */
+.book-switch-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.book-switch-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-h);
+  user-select: none;
+}
+
+/* ===== 线路类型 - 和 label 同一排 ===== */
+.book-line-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.book-line-row .book-label {
+  margin: 0;
+  white-space: nowrap;
+  font-size: 13px;
+}
+.book-line-row .ant-radio-button-wrapper {
+  font-size: 13px;
+}
+
+/* ===== 选中日期的预定列表 ===== */
+.book-booking-list {
+  background: #f0f7ff;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+.book-booking-list-title {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.book-booking-card {
+  font-size: 11px;
+  color: #374151;
+  line-height: 1.5;
+  padding: 2px 0;
+  border-bottom: 1px dashed #d1d5db;
+}
+.book-booking-card:last-child {
+  border-bottom: none;
+}
+.book-booking-time {
+  color: var(--accent);
+  font-weight: 600;
+}
+.book-booking-tag {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 0 4px;
+  font-size: 9px;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.book-detail-toggle {
+  cursor: pointer;
+  font-size: 11px;
+  color: #9ca3af;
+  text-align: center;
+  user-select: none;
+  transition: color 0.15s;
+}
+.book-detail-toggle:hover { color: var(--accent); }
+
+.book-detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: bookExpand 0.2s ease;
+}
+
+@keyframes bookExpand {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 200px; }
+}
+
+/* 底部 */
+.book-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 10px 18px 14px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.book-error {
+  flex: 1;
+  font-size: 11px;
+  color: #e53e3e;
+}
+
+.book-btn-cancel {
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+}
+.book-btn-cancel:hover { background: #f3f4f6; }
+
+.book-btn-submit {
+  padding: 6px 20px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.book-btn-submit:hover { opacity: 0.9; }
+.book-btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

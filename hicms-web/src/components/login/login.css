@@ -1,0 +1,415 @@
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  animation: fadeIn 0.2s ease;
+}
+
+.login-modal {
+  background: var(--bg);
+  border-radius: 12px;
+  width: 680px;
+  max-width: 90vw;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  transform: scale(0.75);
+  transform-origin: center;
+}
+
+.login-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: var(--text-h);
+    background: var(--code-bg);
+  }
+}
+
+/* ===== Left - WeChat QR ===== */
+.login-left {
+  width: 300px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, rgba(43, 146, 240, 0.06) 0%, rgba(43, 146, 240, 0.02) 100%);
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-box {
+  text-align: center;
+}
+
+.qr-title {
+  margin: 0 0 14px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-h);
+}
+
+.qr-code {
+  padding: 14px;
+  background: var(--bg);
+  border-radius: 14px;
+  display: inline-block;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.qr-tip {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* ===== Right - Form ===== */
+.login-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 48px 38px 28px;
+  min-width: 0;
+}
+
+/* ===== Tabs ===== */
+.login-tabs {
+  display: flex;
+  background: var(--code-bg);
+  border-radius: 6px;
+  padding: 0;
+  margin-bottom: 22px;
+  gap: 0;
+  overflow: hidden;
+}
+
+.login-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover:not(.active) {
+    background: rgba(0, 0, 0, 0.06);
+  }
+}
+
+.login-tab.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+
+  &:hover {
+    background: #1a7fd4;
+  }
+}
+
+/* ===== Form ===== */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(43, 146, 240, 0.1);
+  }
+}
+
+.field-icon {
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 14px;
+  color: #9ca3af;
+  flex-shrink: 0;
+
+  svg {
+    display: block;
+  }
+}
+
+.login-field input[type='text'],
+.login-field input[type='password'],
+.login-field input[type='tel'] {
+  flex: 1;
+  border: none;
+  padding: 12px 14px 12px 10px;
+  font-size: 14px;
+  background: transparent;
+  color: var(--text-h);
+  outline: none;
+  min-width: 0;
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+
+.login-field .captcha-input {
+  width: 100%;
+}
+
+.captcha-img {
+  height: 44px;
+  cursor: pointer;
+  border-radius: 0 8px 8px 0;
+  border-left: 1px solid var(--border);
+  flex-shrink: 0;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+/* ===== SMS Button ===== */
+.sms-btn {
+  padding: 5px 10px;
+  margin-right: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  background: rgba(43, 146, 240, 0.08);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(43, 146, 240, 0.16);
+  }
+}
+
+/* ===== Extra (remember + agreement) ===== */
+.login-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.extra-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+
+  input[type='checkbox'] {
+    accent-color: var(--accent);
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin: 0;
+  }
+}
+
+.protocol-link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* ===== Hint ===== */
+.login-hint {
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  color: #ef4444;
+  text-align: center;
+  margin: 8px 0 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ===== Submit ===== */
+.login-submit {
+  width: 100%;
+  padding: 11px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* ===== Protocol Modal ===== */
+.protocol-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1002;
+  animation: fadeIn 0.2s ease;
+}
+
+.protocol-modal {
+  background: var(--bg);
+  border-radius: 12px;
+  width: 500px;
+  max-width: 90vw;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.protocol-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+
+  h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-h);
+  }
+
+  .login-close {
+    position: static;
+  }
+}
+
+.protocol-body {
+  padding: 20px;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+
+/* ===== Protocol Doc ===== */
+.protocol-doc {
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-h);
+    text-align: center;
+    margin: 0 0 8px;
+  }
+
+  h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-h);
+    margin: 20px 0 8px;
+    padding-left: 0;
+  }
+
+  .protocol-intro {
+    color: #6b7280;
+    line-height: 1.8;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.8;
+    margin: 4px 0;
+  }
+
+  ul {
+    margin: 4px 0 8px 16px;
+    padding: 0;
+
+    li {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.9;
+    }
+  }
+
+  strong {
+    color: var(--text-h);
+  }
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px) scale(0.72); opacity: 0; }
+  to { transform: translateY(0) scale(0.75); opacity: 1; }
+}

@@ -1,0 +1,67 @@
+/* 管理页面 Tabs 全局样式 */
+.admin-tabs .ant-tabs-nav {
+  margin-bottom: 8px !important;
+}
+
+.admin-tabs .ant-tabs-tab {
+  padding: 6px 16px !important;
+}
+
+.admin-tabs .ant-tabs-tab .ant-tabs-tab-btn {
+  font-size: 14px !important;
+  color: #666 !important;
+}
+
+.admin-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #1677ff !important;
+  font-weight: 600 !important;
+}
+
+.admin-tabs .ant-tabs-tab:hover {
+  color: #1677ff !important;
+}
+
+.admin-tabs .ant-tabs-ink-bar {
+  height: 3px !important;
+  border-radius: 2px 2px 0 0 !important;
+}
+
+/* ========== 平板 (768px ~ 1023px)：缩小字号，一行全展示 ========== */
+@media (max-width: 1023px) {
+  .admin-tabs .ant-tabs-nav-wrap {
+    flex-wrap: wrap !important;
+    overflow: visible !important;
+  }
+  .admin-tabs .ant-tabs-nav-list {
+    flex-wrap: wrap !important;
+    transform: none !important;
+  }
+  .admin-tabs .ant-tabs-nav-operations {
+    display: none !important;
+  }
+  .admin-tabs .ant-tabs-nav-more {
+    display: none !important;
+  }
+  .admin-tabs .ant-tabs-ink-bar {
+    display: none !important;
+  }
+  .admin-tabs .ant-tabs-tab {
+    padding: 3px 10px !important;
+  }
+  .admin-tabs .ant-tabs-tab .ant-tabs-tab-btn {
+    font-size: 13px !important;
+  }
+  .admin-tabs .ant-tabs-nav {
+    margin-bottom: 4px !important;
+  }
+}
+
+/* ========== 手机 (<768px)：两排，更小字号 ========== */
+@media (max-width: 767px) {
+  .admin-tabs .ant-tabs-tab {
+    padding: 2px 7px !important;
+  }
+  .admin-tabs .ant-tabs-tab .ant-tabs-tab-btn {
+    font-size: 11px !important;
+  }
+}

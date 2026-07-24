@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HICMS 软件开发计划</title>
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --card-bg: #ffffff;
+      --text: #333333;
+      --text-secondary: #666666;
+      --border: #e0e0e0;
+      --accent: #1a73e8;
+      --accent-light: #e8f0fe;
+      --radius: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 40px;
+      color: #111;
+      letter-spacing: 2px;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent-light);
+    }
+
+    h3 {
+      font-size: 16px;
+      color: #444;
+      margin: 20px 0 12px;
+    }
+
+    .section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 14px;
+    }
+
+    thead th {
+      background: #fafafa;
+      color: #555;
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    tbody tr:hover { background: #fafcff; }
+
+    ul {
+      padding-left: 20px;
+      margin: 8px 0;
+    }
+
+    ul li {
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    ul ul { margin-top: 4px; }
+
+    .gantt {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px 28px;
+      border-radius: var(--radius);
+      font-family: "Cascadia Code", "Fira Code", "Consolas", monospace;
+      font-size: 13px;
+      line-height: 1.9;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    blockquote {
+      margin-top: 24px;
+      padding: 16px 20px;
+      background: #fffde7;
+      border-left: 4px solid #ffc107;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      color: #8d6e00;
+      font-size: 14px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-pending { background: #fff3e0; color: #e65100; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>HICMS 软件开发计划</h1>
+
+    <!-- 一、项目概述 -->
+    <div class="section">
+      <h2>一、项目概述</h2>
+      <p>HICMS（信息中心会议综合管理系统）是一套会议预定与日常办公与协作的多端一体化平台，覆盖 Web 页面端、微信小程序端、Android 端及 HarmonyOS 端，后端采用通用 Java 接口架构，支持高并发场景。</p>
+    </div>
+
+    <!-- 二、人员分工 -->
+    <div class="section">
+      <h2>二、人员分工</h2>
+      <table>
+        <thead>
+          <tr><th>角色</th><th>姓名</th><th>职责</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>主任</td><td>谢晓丹</td><td>项目总负责、需求决策、资源协调</td></tr>
+          <tr><td>副主任</td><td>蔡迪</td><td>项目协调、进度跟踪、质量把控</td></tr>
+          <tr><td>开发人员</td><td>信息中心各职工</td><td>前后端开发、测试、部署运维</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 三、里程碑规划 -->
+    <div class="section">
+      <h2>三、里程碑规划</h2>
+      <table>
+        <thead>
+          <tr><th>版本</th><th>名称</th><th>工期</th><th>起止日期</th><th>主要目标</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>v0.10</td><td>内测版</td><td>2 周</td><td>2026-06-29 ~ 2026-07-12</td><td>核心功能开发完成，内部测试，本地部署</td></tr>
+          <tr><td>v0.20</td><td>部署运维版</td><td>1 个月</td><td>2026-07-13 ~ 2026-08-12</td><td>生产环境部署、运维体系搭建、监控告警</td></tr>
+          <tr><td>v0.30</td><td>功能优化版</td><td>2 个月</td><td>2026-08-13 ~ 2026-10-12</td><td>功能迭代优化、性能调优、用户体验提升</td></tr>
+          <tr><td>v0.40</td><td>小程序端</td><td>1 个月</td><td>2026-10-13 ~ 2026-11-12</td><td>微信小程序端开发与上线</td></tr>
+          <tr><td>v0.50</td><td>Android App</td><td>1 个月</td><td>2026-11-13 ~ 2026-12-12</td><td>Android 原生应用开发与上线</td></tr>
+          <tr><td>v0.60</td><td>HarmonyOS App</td><td>1 个月</td><td>2026-12-13 ~ 2027-01-12</td><td>鸿蒙原生应用开发与上线</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 四、技术架构 -->
+    <div class="section">
+      <h2>四、技术架构</h2>
+
+      <h3>4.1 多端支持</h3>
+      <table>
+        <thead>
+          <tr><th>端</th><th>技术栈</th><th>适配范围</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Web 页面端</td><td>响应式前端框架</td><td>电脑、平板、折叠屏手机、竖屏手机</td></tr>
+          <tr><td>微信小程序端</td><td>微信小程序原生 / Taro</td><td>微信生态内运行</td></tr>
+          <tr><td>Android 端</td><td>Android 原生 / Flutter</td><td>Android 手机及平板</td></tr>
+          <tr><td>HarmonyOS 端</td><td>ArkTS / ArkUI</td><td>鸿蒙手机及平板</td></tr>
+          <tr><td>后端</td><td>Java 通用接口</td><td>统一 API，支持高并发</td></tr>
+        </tbody>
+      </table>
+
+      <h3>4.2 后端架构</h3>
+      <ul>
+        <li>语言：Java</li>
+        <li>架构：微服务 / 模块化单体</li>
+        <li>特性：通用接口设计、接口并发支持、统一认证鉴权、API 版本管理</li>
+      </ul>
+    </div>
+
+    <!-- 五、功能模块 -->
+    <div class="section">
+      <h2>五、功能模块</h2>
+
+      <h3>5.1 会议功能</h3>
+      <ul>
+        <li>查询会议室列表及概况（容纳人数、设备、位置、占用状态）</li>
+        <li>预定会议（时间、会议室、参会人员、主题）</li>
+        <li>取消会议（权限校验、通知参会人）</li>
+        <li>会议提醒（会前通知）</li>
+      </ul>
+
+      <h3>5.2 通讯录功能</h3>
+      <ul>
+        <li>查询今日信息中心负责人及值班人</li>
+        <li>查询今日机要局负责人及值班人</li>
+        <li>查询值班人员总表（按日期、科室筛选）</li>
+        <li>发送短信</li>
+        <li>拨打数字电话</li>
+        <li>发送微信小程序通知（需用户关注小程序并授权）</li>
+        <li>发送邮件</li>
+      </ul>
+
+      <h3>5.3 AI 助手功能</h3>
+      <ul>
+        <li>AI 查询个人预定会议数据，生成个人会议分析报告</li>
+        <li>AI 音频分析（会议录音转文字、摘要提取）</li>
+        <li>AI 文件知识库（支持 PDF、TXT、Word、Excel 等办公文档的智能检索与问答）</li>
+        <li>高级 AI 多模态模型对话（文本、图片、文件综合理解）</li>
+      </ul>
+
+      <h3>5.4 管理中心</h3>
+      <ul>
+        <li><strong>会议管理</strong>：会议室维护、会议审批、会议统计</li>
+        <li><strong>人员管理</strong>：组织架构、人员信息、角色权限</li>
+        <li><strong>值班表管理</strong>：值班编排、班次模板、自动排班</li>
+        <li><strong>AI 助手管理</strong>：模型配置、知识库管理、对话记录</li>
+        <li><strong>数据管理</strong>：数据备份、数据导出、日志查询</li>
+        <li><strong>公告与消息管理</strong>：公告发布、消息推送、已读追踪</li>
+        <li><strong>通讯管理</strong>：短信模板、邮件模板、通知渠道配置</li>
+      </ul>
+
+      <h3>5.5 通知功能</h3>
+      <ul>
+        <li>WebSocket 实时消息推送</li>
+        <li>短信通知</li>
+        <li>数字电话通知</li>
+        <li>微信小程序通知（需用户关注小程序并授权）</li>
+        <li>邮件通知</li>
+        <li>通知渠道优先级与降级策略</li>
+      </ul>
+
+      <h3>5.6 个人信息功能</h3>
+      <ul>
+        <li>头像更换</li>
+        <li>用户名修改</li>
+        <li>手机号绑定 / 修改</li>
+        <li>邮箱绑定 / 修改</li>
+        <li>微信号绑定 / 修改</li>
+        <li>所处科室信息</li>
+        <li>密码修改</li>
+      </ul>
+
+      <h3>5.7 埋点与数据分析</h3>
+      <ul>
+        <li>全量用户操作记录（点击、提交、跳转、搜索等）</li>
+        <li>页面留存时间统计</li>
+        <li>用户行为路径分析</li>
+        <li>数据上报与可视化看板</li>
+      </ul>
+
+      <h3>5.8 安全</h3>
+      <ul>
+        <li>SQL 注入防护</li>
+        <li>XSS 跨站脚本防护</li>
+        <li>CSRF 跨站请求伪造防护</li>
+        <li>接口鉴权与权限控制（RBAC）</li>
+        <li>敏感数据加密存储</li>
+        <li>操作日志审计</li>
+        <li>登录安全策略（失败锁定、验证码、多因素认证）</li>
+      </ul>
+    </div>
+
+    <!-- 六、质量保障 -->
+    <div class="section">
+      <h2>六、质量保障</h2>
+
+      <h3>6.1 测试策略</h3>
+      <table>
+        <thead>
+          <tr><th>测试类型</th><th>覆盖范围</th><th>执行阶段</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>单元测试</td><td>核心业务逻辑</td><td>开发阶段持续执行</td></tr>
+          <tr><td>接口测试</td><td>全部 API 接口</td><td>提测前</td></tr>
+          <tr><td>自动化回归测试</td><td>核心业务流程</td><td>每轮迭代</td></tr>
+          <tr><td>压力测试</td><td>高并发场景（会议预定高峰、通知批量发送）</td><td>上线前</td></tr>
+          <tr><td>安全测试</td><td>SQL 注入、XSS、权限越权</td><td>上线前</td></tr>
+          <tr><td>兼容性测试</td><td>多端多设备</td><td>各端发布前</td></tr>
+        </tbody>
+      </table>
+
+      <h3>6.2 代码规范</h3>
+      <ul>
+        <li>统一代码风格（Checkstyle / ESLint）</li>
+        <li>Code Review 机制</li>
+        <li>Git 分支管理规范（feature / develop / release / master）</li>
+      </ul>
+    </div>
+
+    <!-- 七、部署运维 -->
+    <div class="section">
+      <h2>七、部署运维</h2>
+      <ul>
+        <li>服务器环境搭建（Linux + Java 运行环境 + 数据库 + 缓存 + 消息队列）</li>
+        <li>CI/CD 持续集成与持续部署流水线</li>
+        <li>容器化部署（Docker / Kubernetes）</li>
+        <li>日志收集与分析（ELK / 自建日志平台）</li>
+        <li>系统监控与告警（CPU、内存、磁盘、接口响应时间、错误率）</li>
+        <li>数据定时备份与恢复演练</li>
+        <li>灾备方案</li>
+      </ul>
+    </div>
+
+    <!-- 八、日程规划 -->
+    <div class="section">
+      <h2>八、日程规划（甘特图概要）</h2>
+      <pre class="gantt">2026-06 ──────── v0.10 内测版 ────────
+2026-07 ──────── v0.20 部署运维 ────────
+2026-08 ────────────────── v0.30 功能优化 ──────────────────
+2026-10 ──────── v0.40 小程序端 ────────
+2026-11 ──────── v0.50 Android App ────────
+2026-12 ──────── v0.60 HarmonyOS App ────────
+2027-01 ──┐</pre>
+    </div>
+
+    <!-- 九、需求文档索引 -->
+    <div class="section">
+      <h2>九、需求文档索引</h2>
+      <table>
+        <thead>
+          <tr><th>文档名称</th><th>说明</th><th>状态</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>产品需求文档 (PRD)</td><td>整体功能需求描述</td><td><span class="badge badge-pending">待编写</span></td></tr>
+          <tr><td>接口文档 (API Doc)</td><td>后端接口定义</td><td><span class="badge badge-pending">待编写</span></td></tr>
+          <tr><td>数据库设计文档</td><td>表结构、关系、索引</td><td><span class="badge badge-pending">待编写</span></td></tr>
+          <tr><td>部署运维手册</td><td>环境搭建、部署流程</td><td><span class="badge badge-pending">待编写</span></td></tr>
+          <tr><td>用户操作手册</td><td>各端使用说明</td><td><span class="badge badge-pending">待编写</span></td></tr>
+          <tr><td>测试用例文档</td><td>功能测试用例</td><td><span class="badge badge-pending">待编写</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 十、风险管理 -->
+    <div class="section">
+      <h2>十、风险管理</h2>
+      <table>
+        <thead>
+          <tr><th>风险项</th><th>影响</th><th>应对措施</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>多端并行开发资源不足</td><td>进度延期</td><td>优先核心端，逐步扩展</td></tr>
+          <tr><td>小程序通知授权率低</td><td>触达率不足</td><td>短信 / 邮件作为兜底通道</td></tr>
+          <tr><td>AI 模型调用成本高</td><td>预算超支</td><td>本地模型 + 云端模型混合部署</td></tr>
+          <tr><td>高并发场景性能瓶颈</td><td>系统不可用</td><td>提前压测、弹性扩容、限流降级</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <blockquote>本文档为总体规划，具体细节在各阶段执行中逐步细化。</blockquote>
+  </div>
+</body>
+</html>
