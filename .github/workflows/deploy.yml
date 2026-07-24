@@ -12,9 +12,9 @@ jobs:
     steps:
       - name: Cleanup previous build artifacts
         run: |
-          sudo rm -rf /opt/actions-runner/_work/HICMS/HICMS/hicms-api/*/target 2>/dev/null || true
-          sudo rm -rf /opt/actions-runner/_work/HICMS/HICMS/hicms-web/node_modules 2>/dev/null || true
-          sudo rm -rf /opt/actions-runner/_work/HICMS/HICMS/hicms-web/.vite 2>/dev/null || true
+          rm -rf /opt/actions-runner/_work/HICMS/HICMS/hicms-api/*/target 2>/dev/null || true
+          rm -rf /opt/actions-runner/_work/HICMS/HICMS/hicms-web/node_modules 2>/dev/null || true
+          rm -rf /opt/actions-runner/_work/HICMS/HICMS/hicms-web/.vite 2>/dev/null || true
 
       - name: Checkout
         uses: actions/checkout@v5
@@ -23,7 +23,7 @@ jobs:
         run: mvn -f /opt/actions-runner/_work/HICMS/HICMS/hicms-api/pom.xml clean package -DskipTests
 
       - name: Deploy API JAR
-        run: sudo cp /opt/actions-runner/_work/HICMS/HICMS/hicms-api/hicms-admin/target/hicms-admin.jar /opt/hicms/
+        run: cp /opt/actions-runner/_work/HICMS/HICMS/hicms-api/hicms-admin/target/hicms-admin.jar /opt/hicms/
 
       - name: Build Web (Vite)
         run: |
@@ -34,8 +34,8 @@ jobs:
       - name: Deploy Web
         run: |
           ls -la /opt/actions-runner/_work/HICMS/HICMS/hicms-web/dist/index.html || { echo "ERROR: dist not found"; exit 1; }
-          sudo rm -rf /var/www/hicms/*
-          sudo cp -r /opt/actions-runner/_work/HICMS/HICMS/hicms-web/dist/* /var/www/hicms/
+          rm -rf /var/www/hicms/*
+          cp -r /opt/actions-runner/_work/HICMS/HICMS/hicms-web/dist/* /var/www/hicms/
 
       - name: Restart API Service
         run: sudo systemctl restart hicms
