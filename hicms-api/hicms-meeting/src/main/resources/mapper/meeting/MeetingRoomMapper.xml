@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.heilongjiang.ic.meeting.meeting.mapper.MeetingRoomMapper">
+    
+    <resultMap type="MeetingRoom" id="MeetingRoomResult">
+        <result property="roomId"           column="room_id"           />
+        <result property="name"             column="name"              />
+        <result property="normalCapacity"   column="normal_capacity"   />
+        <result property="covidCapacity"    column="covid_capacity"    />
+        <result property="applicableScope"  column="applicable_scope"  />
+        <result property="layout"           column="layout"            />
+        <result property="areaSize"         column="area_size"         />
+        <result property="imageUrl"         column="image_url"         />
+        <result property="bookingJson"      column="booking_json"      />
+        <result property="createBy"         column="create_by"         />
+        <result property="createTime"       column="create_time"       />
+        <result property="updateBy"         column="update_by"         />
+        <result property="updateTime"       column="update_time"       />
+        <result property="remark"           column="remark"            />
+    </resultMap>
+    
+    <sql id="selectMeetingRoomVo">
+        select room_id, name, normal_capacity, covid_capacity, applicable_scope,
+               layout, area_size, image_url, booking_json,
+               create_by, create_time, update_by, update_time, remark 
+        from meeting_room
+    </sql>
+    
+    <select id="selectMeetingRoomList" parameterType="MeetingRoom" resultMap="MeetingRoomResult">
+        <include refid="selectMeetingRoomVo"/>
+        <where>
+            <if test="name != null and name != ''">
+                AND name like concat('%', #{name}, '%')
+            </if>
+        </where>
+        order by room_id asc
+    </select>
+
+    <insert id="insertMeetingRoom" parameterType="MeetingRoom" useGeneratedKeys="true" keyProperty="roomId">
+        insert into meeting_room
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="normalCapacity != null">normal_capacity,</if>
+            <if test="covidCapacity != null">covid_capacity,</if>
+            <if test="applicableScope != null">applicable_scope,</if>
+            <if test="layout != null">layout,</if>
+            <if test="areaSize != null">area_size,</if>
+            <if test="imageUrl != null">image_url,</if>
+            <if test="bookingJson != null">booking_json,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="normalCapacity != null">#{normalCapacity},</if>
+            <if test="covidCapacity != null">#{covidCapacity},</if>
+            <if test="applicableScope != null">#{applicableScope},</if>
+            <if test="layout != null">#{layout},</if>
+            <if test="areaSize != null">#{areaSize},</if>
+            <if test="imageUrl != null">#{imageUrl},</if>
+            <if test="bookingJson != null">#{bookingJson},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMeetingRoom" parameterType="MeetingRoom">
+        update meeting_room
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="normalCapacity != null">normal_capacity = #{normalCapacity},</if>
+            <if test="covidCapacity != null">covid_capacity = #{covidCapacity},</if>
+            <if test="applicableScope != null">applicable_scope = #{applicableScope},</if>
+            <if test="layout != null">layout = #{layout},</if>
+            <if test="areaSize != null">area_size = #{areaSize},</if>
+            <if test="imageUrl != null">image_url = #{imageUrl},</if>
+            <if test="bookingJson != null">booking_json = #{bookingJson},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where room_id = #{roomId}
+    </update>
+
+    <delete id="deleteMeetingRoomById" parameterType="Long">
+        delete from meeting_room where room_id = #{roomId}
+    </delete>
+
+    <delete id="deleteMeetingRoomByIds" parameterType="String">
+        delete from meeting_room where room_id in
+        <foreach collection="array" item="roomId" open="(" separator="," close=")">
+            #{roomId}
+        </foreach>
+    </delete>
+
+</mapper>

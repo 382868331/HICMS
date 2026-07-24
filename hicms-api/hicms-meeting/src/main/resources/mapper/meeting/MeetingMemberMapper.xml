@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.heilongjiang.ic.meeting.meeting.mapper.MeetingMemberMapper">
+
+    <resultMap type="MeetingMember" id="MeetingMemberResult">
+        <result property="memberId"           column="member_id"            />
+        <result property="userId"             column="user_id"              />
+        <result property="userName"           column="user_name"            />
+        <result property="phone"              column="phone"                />
+        <result property="wechat"             column="wechat"               />
+        <result property="email"              column="email"                />
+        <result property="department"         column="department"           />
+        <result property="dutyDate"           column="duty_date"            />
+        <result property="isMiniappAuth"      column="is_miniapp_auth"      />
+        <result property="isInfoCenter"       column="is_info_center"       />
+        <result property="isJiyaoBureau"      column="is_jiyao_bureau"      />
+        <result property="isMeetingOrganizer" column="is_meeting_organizer" />
+        <result property="isCurrentDuty"      column="is_current_duty"      />
+        <result property="createBy"           column="create_by"            />
+        <result property="createTime"         column="create_time"          />
+        <result property="updateBy"           column="update_by"            />
+        <result property="updateTime"         column="update_time"          />
+        <result property="remark"             column="remark"               />
+    </resultMap>
+
+    <sql id="selectMeetingMemberVo">
+        select member_id, user_id, user_name, phone, wechat, email, department, duty_date,
+               is_miniapp_auth, is_info_center, is_jiyao_bureau, is_meeting_organizer, is_current_duty,
+               create_by, create_time, update_by, update_time, remark
+        from meeting_member
+    </sql>
+
+    <select id="selectMeetingMemberList" parameterType="MeetingMember" resultMap="MeetingMemberResult">
+        <include refid="selectMeetingMemberVo"/>
+        <where>
+            <if test="userId != null and userId != ''">
+                AND user_id = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                AND user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                AND phone like concat('%', #{phone}, '%')
+            </if>
+            <if test="wechat != null and wechat != ''">
+                AND wechat like concat('%', #{wechat}, '%')
+            </if>
+            <if test="email != null and email != ''">
+                AND email like concat('%', #{email}, '%')
+            </if>
+            <if test="department != null and department != ''">
+                AND department like concat('%', #{department}, '%')
+            </if>
+            <if test="isMiniappAuth != null and isMiniappAuth != ''">
+                AND is_miniapp_auth = #{isMiniappAuth}
+            </if>
+            <if test="isInfoCenter != null and isInfoCenter != ''">
+                AND is_info_center = #{isInfoCenter}
+            </if>
+            <if test="isJiyaoBureau != null and isJiyaoBureau != ''">
+                AND is_jiyao_bureau = #{isJiyaoBureau}
+            </if>
+            <if test="isMeetingOrganizer != null and isMeetingOrganizer != ''">
+                AND is_meeting_organizer = #{isMeetingOrganizer}
+            </if>
+            <if test="isCurrentDuty != null and isCurrentDuty != ''">
+                AND is_current_duty = #{isCurrentDuty}
+            </if>
+            <if test="params.beginDutyDate != null and params.beginDutyDate != ''">
+                AND duty_date &gt;= #{params.beginDutyDate}
+            </if>
+            <if test="params.endDutyDate != null and params.endDutyDate != ''">
+                AND duty_date &lt;= #{params.endDutyDate}
+            </if>
+        </where>
+        order by duty_date desc, department asc, member_id asc
+    </select>
+
+    <select id="selectMeetingMemberById" parameterType="Long" resultMap="MeetingMemberResult">
+        <include refid="selectMeetingMemberVo"/>
+        where member_id = #{memberId}
+    </select>
+
+    <insert id="insertMeetingMember" parameterType="MeetingMember" useGeneratedKeys="true" keyProperty="memberId">
+        insert into meeting_member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="wechat != null">wechat,</if>
+            <if test="email != null">email,</if>
+            <if test="department != null">department,</if>
+            <if test="dutyDate != null">duty_date,</if>
+            <if test="isMiniappAuth != null">is_miniapp_auth,</if>
+            <if test="isInfoCenter != null">is_info_center,</if>
+            <if test="isJiyaoBureau != null">is_jiyao_bureau,</if>
+            <if test="isMeetingOrganizer != null">is_meeting_organizer,</if>
+            <if test="isCurrentDuty != null">is_current_duty,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="wechat != null">#{wechat},</if>
+            <if test="email != null">#{email},</if>
+            <if test="department != null">#{department},</if>
+            <if test="dutyDate != null">#{dutyDate},</if>
+            <if test="isMiniappAuth != null">#{isMiniappAuth},</if>
+            <if test="isInfoCenter != null">#{isInfoCenter},</if>
+            <if test="isJiyaoBureau != null">#{isJiyaoBureau},</if>
+            <if test="isMeetingOrganizer != null">#{isMeetingOrganizer},</if>
+            <if test="isCurrentDuty != null">#{isCurrentDuty},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMeetingMember" parameterType="MeetingMember">
+        update meeting_member
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="wechat != null">wechat = #{wechat},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="department != null">department = #{department},</if>
+            <if test="dutyDate != null">duty_date = #{dutyDate},</if>
+            <if test="isMiniappAuth != null">is_miniapp_auth = #{isMiniappAuth},</if>
+            <if test="isInfoCenter != null">is_info_center = #{isInfoCenter},</if>
+            <if test="isJiyaoBureau != null">is_jiyao_bureau = #{isJiyaoBureau},</if>
+            <if test="isMeetingOrganizer != null">is_meeting_organizer = #{isMeetingOrganizer},</if>
+            <if test="isCurrentDuty != null">is_current_duty = #{isCurrentDuty},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where member_id = #{memberId}
+    </update>
+
+    <delete id="deleteMeetingMemberById" parameterType="Long">
+        delete from meeting_member where member_id = #{memberId}
+    </delete>
+
+    <delete id="deleteMeetingMemberByIds" parameterType="String">
+        delete from meeting_member where member_id in
+        <foreach collection="array" item="memberId" open="(" separator="," close=")">
+            #{memberId}
+        </foreach>
+    </delete>
+
+</mapper>

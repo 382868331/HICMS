@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.heilongjiang.ic.meeting.meeting.mapper.MeetingBookMapper">
+
+    <resultMap type="MeetingBook" id="MeetingBookResult">
+        <result property="bookId"           column="book_id"            />
+        <result property="roomName"         column="room_name"          />
+        <result property="roomId"           column="room_id"            />
+        <result property="bookerName"       column="booker_name"        />
+        <result property="bookerId"         column="booker_id"          />
+        <result property="meetingName"      column="meeting_name"       />
+        <result property="leaderName"       column="leader_name"        />
+        <result property="audioFileUrl"     column="audio_file_url"     />
+        <result property="audioTranscriptUrl" column="audio_transcript_url" />
+        <result property="meetingStartTime" column="meeting_start_time" />
+        <result property="meetingEndTime"   column="meeting_end_time"   />
+        <result property="agendaPdfUrl"     column="agenda_pdf_url"     />
+        <result property="seatMapUrl"       column="seat_map_url"       />
+        <result property="isOnline"         column="is_online"          />
+        <result property="isHxy"            column="is_hxy"             />
+        <result property="isJyjLine"        column="is_jyj_line"        />
+        <result property="isGbLine"         column="is_gb_line"         />
+        <result property="isCanceled"       column="is_canceled"        />
+        <result property="isFinished"       column="is_finished"        />
+        <result property="createBy"         column="create_by"          />
+        <result property="createTime"       column="create_time"        />
+        <result property="updateBy"         column="update_by"          />
+        <result property="updateTime"       column="update_time"        />
+        <result property="remark"           column="remark"             />
+    </resultMap>
+
+    <sql id="selectMeetingBookVo">
+        select book_id, room_name, room_id, booker_name, booker_id,
+               meeting_name, leader_name, audio_file_url, audio_transcript_url,
+               meeting_start_time, meeting_end_time, agenda_pdf_url, seat_map_url,
+               is_online, is_hxy, is_jyj_line, is_gb_line, is_canceled, is_finished,
+               create_by, create_time, update_by, update_time, remark
+        from meeting_book
+    </sql>
+
+    <select id="selectMeetingBookList" parameterType="MeetingBook" resultMap="MeetingBookResult">
+        <include refid="selectMeetingBookVo"/>
+        <where>
+            <if test="roomName != null and roomName != ''">
+                AND room_name like concat('%', #{roomName}, '%')
+            </if>
+            <if test="roomId != null">
+                AND room_id = #{roomId}
+            </if>
+            <if test="bookerName != null and bookerName != ''">
+                AND booker_name like concat('%', #{bookerName}, '%')
+            </if>
+            <if test="bookerId != null">
+                AND booker_id = #{bookerId}
+            </if>
+            <if test="meetingName != null and meetingName != ''">
+                AND meeting_name like concat('%', #{meetingName}, '%')
+            </if>
+            <if test="leaderName != null and leaderName != ''">
+                AND leader_name like concat('%', #{leaderName}, '%')
+            </if>
+            <if test="audioFileUrl != null and audioFileUrl != ''">
+                AND audio_file_url = #{audioFileUrl}
+            </if>
+            <if test="audioTranscriptUrl != null and audioTranscriptUrl != ''">
+                AND audio_transcript_url = #{audioTranscriptUrl}
+            </if>
+            <if test="agendaPdfUrl != null and agendaPdfUrl != ''">
+                AND agenda_pdf_url = #{agendaPdfUrl}
+            </if>
+            <if test="seatMapUrl != null and seatMapUrl != ''">
+                AND seat_map_url = #{seatMapUrl}
+            </if>
+            <if test="isOnline != null and isOnline != ''">
+                AND is_online = #{isOnline}
+            </if>
+            <if test="isHxy != null and isHxy != ''">
+                AND is_hxy = #{isHxy}
+            </if>
+            <if test="isJyjLine != null and isJyjLine != ''">
+                AND is_jyj_line = #{isJyjLine}
+            </if>
+            <if test="isGbLine != null and isGbLine != ''">
+                AND is_gb_line = #{isGbLine}
+            </if>
+            <if test="isCanceled != null and isCanceled != ''">
+                AND is_canceled = #{isCanceled}
+            </if>
+            <if test="isFinished != null and isFinished != ''">
+                AND is_finished = #{isFinished}
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                AND date_format(meeting_start_time,'%Y%m%d') &gt;= date_format(#{params.beginTime},'%Y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                AND date_format(meeting_start_time,'%Y%m%d') &lt;= date_format(#{params.endTime},'%Y%m%d')
+            </if>
+        </where>
+        order by meeting_start_time desc
+    </select>
+
+    <select id="selectOverlapping" resultMap="MeetingBookResult">
+        select * from meeting_book
+        where room_id = #{roomId}
+          and is_canceled = '0'
+          and meeting_end_time is not null
+          and meeting_start_time &lt; #{endTime}
+          and meeting_end_time &gt; #{startTime}
+    </select>
+
+    <select id="selectMeetingBookById" parameterType="Long" resultMap="MeetingBookResult">
+        <include refid="selectMeetingBookVo"/>
+        where book_id = #{bookId}
+    </select>
+
+    <update id="updateOverdueMeetings">
+        update meeting_book
+        set is_finished = '1', update_time = now()
+        where is_canceled = '0'
+          and is_finished = '0'
+          and meeting_start_time &lt;= now()
+    </update>
+
+    <insert id="insertMeetingBook" parameterType="MeetingBook" useGeneratedKeys="true" keyProperty="bookId">
+        insert into meeting_book
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roomName != null">room_name,</if>
+            <if test="roomId != null">room_id,</if>
+            <if test="bookerName != null">booker_name,</if>
+            <if test="bookerId != null">booker_id,</if>
+            <if test="meetingName != null">meeting_name,</if>
+            <if test="leaderName != null">leader_name,</if>
+            <if test="audioFileUrl != null">audio_file_url,</if>
+            <if test="audioTranscriptUrl != null">audio_transcript_url,</if>
+            <if test="meetingStartTime != null">meeting_start_time,</if>
+            <if test="meetingEndTime != null">meeting_end_time,</if>
+            <if test="agendaPdfUrl != null">agenda_pdf_url,</if>
+            <if test="seatMapUrl != null">seat_map_url,</if>
+            <if test="isOnline != null">is_online,</if>
+            <if test="isHxy != null">is_hxy,</if>
+            <if test="isJyjLine != null">is_jyj_line,</if>
+            <if test="isGbLine != null">is_gb_line,</if>
+            <if test="isCanceled != null">is_canceled,</if>
+            <if test="isFinished != null">is_finished,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roomName != null">#{roomName},</if>
+            <if test="roomId != null">#{roomId},</if>
+            <if test="bookerName != null">#{bookerName},</if>
+            <if test="bookerId != null">#{bookerId},</if>
+            <if test="meetingName != null">#{meetingName},</if>
+            <if test="leaderName != null">#{leaderName},</if>
+            <if test="audioFileUrl != null">#{audioFileUrl},</if>
+            <if test="audioTranscriptUrl != null">#{audioTranscriptUrl},</if>
+            <if test="meetingStartTime != null">#{meetingStartTime},</if>
+            <if test="meetingEndTime != null">#{meetingEndTime},</if>
+            <if test="agendaPdfUrl != null">#{agendaPdfUrl},</if>
+            <if test="seatMapUrl != null">#{seatMapUrl},</if>
+            <if test="isOnline != null">#{isOnline},</if>
+            <if test="isHxy != null">#{isHxy},</if>
+            <if test="isJyjLine != null">#{isJyjLine},</if>
+            <if test="isGbLine != null">#{isGbLine},</if>
+            <if test="isCanceled != null">#{isCanceled},</if>
+            <if test="isFinished != null">#{isFinished},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMeetingBook" parameterType="MeetingBook">
+        update meeting_book
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="roomName != null">room_name = #{roomName},</if>
+            <if test="roomId != null">room_id = #{roomId},</if>
+            <if test="bookerName != null">booker_name = #{bookerName},</if>
+            <if test="bookerId != null">booker_id = #{bookerId},</if>
+            <if test="meetingName != null">meeting_name = #{meetingName},</if>
+            <if test="leaderName != null">leader_name = #{leaderName},</if>
+            <if test="audioFileUrl != null">audio_file_url = #{audioFileUrl},</if>
+            <if test="audioTranscriptUrl != null">audio_transcript_url = #{audioTranscriptUrl},</if>
+            <if test="meetingStartTime != null">meeting_start_time = #{meetingStartTime},</if>
+            <if test="meetingEndTime != null">meeting_end_time = #{meetingEndTime},</if>
+            <if test="agendaPdfUrl != null">agenda_pdf_url = #{agendaPdfUrl},</if>
+            <if test="seatMapUrl != null">seat_map_url = #{seatMapUrl},</if>
+            <if test="isOnline != null">is_online = #{isOnline},</if>
+            <if test="isHxy != null">is_hxy = #{isHxy},</if>
+            <if test="isJyjLine != null">is_jyj_line = #{isJyjLine},</if>
+            <if test="isGbLine != null">is_gb_line = #{isGbLine},</if>
+            <if test="isCanceled != null">is_canceled = #{isCanceled},</if>
+            <if test="isFinished != null">is_finished = #{isFinished},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where book_id = #{bookId}
+    </update>
+
+    <delete id="deleteMeetingBookById" parameterType="Long">
+        delete from meeting_book where book_id = #{bookId}
+    </delete>
+
+    <delete id="deleteMeetingBookByIds" parameterType="String">
+        delete from meeting_book where book_id in
+        <foreach collection="array" item="bookId" open="(" separator="," close=")">
+            #{bookId}
+        </foreach>
+    </delete>
+
+</mapper>

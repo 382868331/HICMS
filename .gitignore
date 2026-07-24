@@ -1,0 +1,28 @@
+# Maven
+target/
+*.jar
+*.war
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Node
+node_modules/
+dist/
+.DS_Store
+
+# 临时文件
+development-plan.html
+development-plan.txt
+development-plan.md
+base64.txt
+error.md
+room.md
+meeting_room.sql
+会议室情况.md
+费用表.md
+
+# RuoYi-Vue 模板（非项目代码）
+RuoYi-Vue/
