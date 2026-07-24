@@ -17,7 +17,9 @@ jobs:
         run: |
           cd hicms-api
           mvn clean package -DskipTests
-          cp hicms-admin/target/hicms-admin.jar /opt/hicms/
+
+      - name: Deploy API JAR
+        run: cp /opt/actions-runner/_work/HICMS/HICMS/hicms-api/hicms-admin/target/hicms-admin.jar /opt/hicms/
 
       - name: Build Web (Vite)
         run: |
@@ -25,6 +27,10 @@ jobs:
           sudo rm -rf node_modules 2>/dev/null || true
           npm ci
           npm run build
+
+      - name: Deploy Web
+        run: |
+          cd hicms-web
           sudo rm -rf /var/www/hicms/*
           sudo cp -r dist/* /var/www/hicms/
 
