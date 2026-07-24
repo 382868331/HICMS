@@ -20,24 +20,22 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Build API (Maven)
-        run: |
-          cd hicms-api
-          mvn clean package -DskipTests
+        run: mvn -f /opt/actions-runner/_work/HICMS/HICMS/hicms-api/pom.xml clean package -DskipTests
 
       - name: Deploy API JAR
-        run: cp /opt/actions-runner/_work/HICMS/HICMS/hicms-api/hicms-admin/target/hicms-admin.jar /opt/hicms/
+        run: sudo cp /opt/actions-runner/_work/HICMS/HICMS/hicms-api/hicms-admin/target/hicms-admin.jar /opt/hicms/
 
       - name: Build Web (Vite)
         run: |
-          cd hicms-web
+          cd /opt/actions-runner/_work/HICMS/HICMS/hicms-web
           npm ci
           npm run build
 
       - name: Deploy Web
         run: |
-          cd hicms-web
+          ls -la /opt/actions-runner/_work/HICMS/HICMS/hicms-web/dist/index.html || { echo "ERROR: dist not found"; exit 1; }
           sudo rm -rf /var/www/hicms/*
-          sudo cp -r dist/* /var/www/hicms/
+          sudo cp -r /opt/actions-runner/_work/HICMS/HICMS/hicms-web/dist/* /var/www/hicms/
 
       - name: Restart API Service
         run: sudo systemctl restart hicms
