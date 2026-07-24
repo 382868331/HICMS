@@ -48,7 +48,7 @@ export interface UserInfoResult {
 }
 
 export function login(params: LoginParams): Promise<LoginResult> {
-  return request.post('/login', params).then((res: LoginResult) => {
+  return request.post('/login', params).then((res: any) => {
     if (res.code === 200 && res.token) {
       setToken(res.token)
     }

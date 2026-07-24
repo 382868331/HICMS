@@ -5,7 +5,7 @@ import {
 } from 'antd'
 import {
   TeamOutlined, PhoneOutlined, MailOutlined, WechatOutlined, CalendarOutlined,
-  MessageOutlined, BellOutlined, SoundOutlined, QrcodeOutlined, UserOutlined,
+  MessageOutlined, BellOutlined, SoundOutlined, QrcodeOutlined,
 } from '@ant-design/icons'
 import { getMemberList, type MeetingMember } from '../../api/worker'
 import ActionModals, { type ActionType } from '../../components/contacts/ActionModals'

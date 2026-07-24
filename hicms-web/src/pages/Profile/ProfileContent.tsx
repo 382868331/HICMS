@@ -11,7 +11,7 @@ import { logout } from '../../api/auth'
 import { clearToken } from '../../utils/request'
 import { useNotice } from '../../context/NoticeContext'
 
-const { Text, Paragraph } = Typography
+const { Paragraph } = Typography
 
 // 随机备案号
 const ICP_NUM = '黑ICP备' + Math.random().toString(36).substring(2, 10) + '号'

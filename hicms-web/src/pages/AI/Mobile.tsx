@@ -5,7 +5,7 @@ import { AI_PANELS } from '../../components/ai/AiPanels'
 const { Text } = Typography
 
 function AIMobile() {
-  const [activeKey, setActiveKey] = useState(AI_PANELS[0].key)
+  const [activeKey, setActiveKey] = useState<string>(AI_PANELS[0].key)
 
   const activePanel = AI_PANELS.find((p) => p.key === activeKey)
 

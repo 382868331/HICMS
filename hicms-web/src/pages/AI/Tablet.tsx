@@ -3,7 +3,7 @@ import { Tabs } from 'antd'
 import { AI_PANELS } from '../../components/ai/AiPanels'
 
 function AITablet() {
-  const [activeKey, setActiveKey] = useState(AI_PANELS[0].key)
+  const [activeKey, setActiveKey] = useState<string>(AI_PANELS[0].key)
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100%', background: '#f5f5f5' }}>

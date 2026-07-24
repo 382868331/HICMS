@@ -31,7 +31,8 @@ function ActionModals({ visible, actionType, member, onClose }: Props) {
   const [confirmLoading, setConfirmLoading] = useState(false)
   const [template, setTemplate] = useState('')
 
-  const handleOpen = useCallback(() => {
+  const handleOpen = useCallback((open?: boolean) => {
+    if (open === false) return
     if (actionType && TEMPLATES[actionType]) {
       setTemplate(TEMPLATES[actionType])
     }
@@ -68,7 +69,7 @@ function ActionModals({ visible, actionType, member, onClose }: Props) {
         confirmLoading={confirmLoading}
         okText="确认拨打"
         cancelText="取消"
-        onOpen={handleOpen}
+        afterOpenChange={handleOpen}
       >
         <div style={{ padding: '16px 0' }}>
           <p>
@@ -94,7 +95,7 @@ function ActionModals({ visible, actionType, member, onClose }: Props) {
         okText="确认发送"
         cancelText="取消"
         width={600}
-        onOpen={handleOpen}
+        afterOpenChange={handleOpen}
       >
         <div style={{ padding: '4px 0' }}>
           <p style={{ marginBottom: 8 }}>
@@ -126,7 +127,7 @@ function ActionModals({ visible, actionType, member, onClose }: Props) {
         okText="确认发送"
         cancelText="取消"
         width={580}
-        onOpen={handleOpen}
+        afterOpenChange={handleOpen}
       >
         <div style={{ padding: '4px 0' }}>
           <p style={{ marginBottom: 8 }}>
@@ -157,7 +158,7 @@ function ActionModals({ visible, actionType, member, onClose }: Props) {
         onCancel={handleClose}
         footer={null}
         width={400}
-        onOpen={handleOpen}
+        afterOpenChange={handleOpen}
       >
         <div style={{ textAlign: 'center', padding: '16px 0' }}>
           <p style={{ marginBottom: 12 }}>
@@ -209,7 +210,7 @@ function ActionModals({ visible, actionType, member, onClose }: Props) {
         okText="确认发送"
         cancelText="取消"
         width={640}
-        onOpen={handleOpen}
+        afterOpenChange={handleOpen}
       >
         <div style={{ padding: '4px 0' }}>
           <p style={{ marginBottom: 8 }}>
@@ -248,7 +249,7 @@ function ActionModals({ visible, actionType, member, onClose }: Props) {
         okText="确认发送"
         cancelText="取消"
         width={600}
-        onOpen={handleOpen}
+        afterOpenChange={handleOpen}
       >
         <div style={{ padding: '4px 0' }}>
           <p style={{ marginBottom: 8 }}>

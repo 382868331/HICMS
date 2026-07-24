@@ -6,7 +6,7 @@ const { Sider, Content } = Layout
 const { Text } = Typography
 
 function AIDesktop() {
-  const [activeKey, setActiveKey] = useState(AI_PANELS[0].key)
+  const [activeKey, setActiveKey] = useState<string>(AI_PANELS[0].key)
 
   const activePanel = AI_PANELS.find((p) => p.key === activeKey)
 
