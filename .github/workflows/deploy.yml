@@ -43,6 +43,9 @@ jobs:
       - name: Done
         run: echo "Deploy completed at $(date)"
 
-      - name: Fix workspace permissions
-        run: sudo chown -R actions-runner:actions-runner /opt/actions-runner/_work/HICMS 2>/dev/null || true
+      - name: Fix permissions
+        run: |
+          sudo chown -R actions-runner:actions-runner /opt/actions-runner/_work/HICMS 2>/dev/null || true
+          sudo chown -R actions-runner:actions-runner /var/www/hicms 2>/dev/null || true
+          sudo chown -R actions-runner:actions-runner /opt/hicms 2>/dev/null || true
         if: always()
