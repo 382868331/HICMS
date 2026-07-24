@@ -22,10 +22,11 @@ jobs:
       - name: Build Web (Vite)
         run: |
           cd hicms-web
+          sudo rm -rf node_modules 2>/dev/null || true
           npm ci
           npm run build
-          rm -rf /var/www/hicms/*
-          cp -r dist/* /var/www/hicms/
+          sudo rm -rf /var/www/hicms/*
+          sudo cp -r dist/* /var/www/hicms/
 
       - name: Restart API Service
         run: sudo systemctl restart hicms
