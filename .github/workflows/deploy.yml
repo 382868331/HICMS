@@ -10,6 +10,9 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Stop old API (free memory)
+        run: sudo systemctl stop hicms 2>/dev/null || true
+
       - name: Cleanup previous build artifacts
         run: |
           sudo rm -rf /opt/actions-runner/_work/HICMS/HICMS/hicms-api/*/target 2>/dev/null || true
@@ -20,7 +23,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Build API (Maven)
-        run: mvn -f /opt/actions-runner/_work/HICMS/HICMS/hicms-api/pom.xml clean package -DskipTests
+        run: mvn -f /opt/actions-runner/_work/HICMS/HICMS/hicms-api/pom.xml clean package -DskipTests -T 1
 
       - name: Deploy API JAR
         run: |
